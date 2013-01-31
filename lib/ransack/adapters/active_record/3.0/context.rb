@@ -10,7 +10,7 @@ module Ransack
         # Because the AR::Associations namespace is insane
         JoinDependency = ::ActiveRecord::Associations::ClassMethods::JoinDependency
         JoinBase = JoinDependency::JoinBase
-        
+
         def initialize(object, options = {})
           super
           @arel_visitor = Arel::Visitors.visitor_for @engine
@@ -102,7 +102,7 @@ module Ransack
         end
 
         def build_join_dependency(relation)
-          buckets = relation.joins_values.group_by do |join|
+          buckets = relation.joins_values.compact.group_by do |join|
             case join
             when String
               'string_join'
